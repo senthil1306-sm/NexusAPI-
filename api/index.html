@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusAPI - AI-Powered API Intelligence</title>
+    <meta name="description" content="Automatically generate API documentation, interactive explorers, and client SDKs from backend implementations using AI.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <i data-lucide="cpu" class="logo-icon neon-text"></i>
+                <h1 class="logo-text">Nexus<span class="neon-text">API</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item active" data-target="dashboard">
+                    <i data-lucide="layout-dashboard"></i> Dashboard
+                </li>
+                <li class="nav-item disabled" data-target="explorer" id="nav-explorer">
+                    <i data-lucide="terminal-square"></i> API Explorer
+                </li>
+                <li class="nav-item disabled" data-target="docs" id="nav-docs">
+                    <i data-lucide="file-json"></i> Documentation
+                </li>
+                <li class="nav-item disabled" data-target="sdk" id="nav-sdk">
+                    <i data-lucide="code-2"></i> SDK Generator
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <section id="dashboard" class="view-section active">
+                <header class="section-header">
+                    <h2>Welcome to AI-Powered Integration</h2>
+                    <p>Paste your backend routes below to instantly extract endpoints and generate documentation.</p>
+                </header>
+                
+                <div class="code-upload-panel glass-panel">
+                    <div class="panel-header">
+                        <h3><i data-lucide="code"></i> Input Backend Source</h3>
+                        <div class="badge">Express.js (Beta)</div>
+                    </div>
+                    <textarea id="sourceCodeInput" class="code-editor" placeholder="// Paste your Express.js routes here...
+const express = require('express');
+const router = express.Router();
+
+// Get user profile
+router.get('/users/:id', (req, res) => {
+    // some logic
+});
+..."></textarea>
+                    
+                    <div class="panel-actions">
+                        <button class="btn btn-secondary" id="btnLoadSample">Load Sample Code</button>
+                        <button class="btn btn-primary" id="btnAnalyzeCode">
+                            <i data-lucide="zap"></i> Analyze with AI
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Analysis Progress Overlay -->
+                <div class="ai-overlay hidden" id="aiOverlay">
+                    <div class="loader-spinner"></div>
+                    <h3 class="neon-text">AI is Analyzing Source...</h3>
+                    <p id="aiStatusText">Parsing AST syntax tree...</p>
+                </div>
+            </section>
+
+            <!-- Explorer View -->
+            <section id="explorer" class="view-section hidden">
+                <header class="section-header">
+                    <h2>Interactive API Explorer</h2>
+                    <p>Test the endpoints automatically extracted from your source code.</p>
+                </header>
+
+                <div class="split-layout">
+                    <!-- Endpoint List -->
+                    <div class="endpoint-list glass-panel" id="endpointContainer">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <!-- Endpoint Details & Try it out -->
+                    <div class="endpoint-details glass-panel" id="endpointDetails">
+                        <div class="empty-state">
+                            <i data-lucide="mouse-pointer-click"></i>
+                            <p>Select an endpoint to explore</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Documentation View -->
+            <section id="docs" class="view-section hidden">
+                <header class="section-header">
+                    <h2>API Documentation</h2>
+                    <button class="btn btn-secondary btn-sm" id="btnDownloadOpenApi">
+                        <i data-lucide="download"></i> OpenAPI.json
+                    </button>
+                </header>
+                <div class="docs-container glass-panel markdown-body" id="docsContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </section>
+
+            <!-- SDK Generator View -->
+            <section id="sdk" class="view-section hidden">
+                <header class="section-header">
+                    <h2>Client SDK Generation</h2>
+                    <p>Production-ready code snippets ready to copy into your app.</p>
+                </header>
+                
+                <div class="sdk-container glass-panel">
+                    <div class="sdk-tabs">
+                        <button class="sdk-tab active" data-lang="javascript">JavaScript (Fetch)</button>
+                        <button class="sdk-tab" data-lang="python">Python (Requests)</button>
+                        <button class="sdk-tab" data-lang="java">Java (OkHttp)</button>
+                    </div>
+                    <div class="sdk-content-wrapper">
+                        <button class="btn-icon copy-btn" id="btnCopySdk" title="Copy to clipboard">
+                            <i data-lucide="copy"></i>
+                        </button>
+                        <pre><code id="sdkCodeView" class="language-javascript sdk-code"></code></pre>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/parser.js"></script>
+    <script src="js/ai-analyzer.js"></script>
+    <script src="js/sdk-generator.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
